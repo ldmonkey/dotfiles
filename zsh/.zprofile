@@ -7,4 +7,4 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 #eval "$(pyenv init -)"
 
 # Created by `pipx` on 2024-05-28 07:55:14
-export PATH="$PATH:/Users/snigaly/.local/bin"
+export PATH="$PATH:$HOME/.local/bin"
