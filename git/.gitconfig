@@ -2,7 +2,6 @@
 	editor = vim
 	pager = diff-so-fancy | less --tabs=4 -RFX
 [user]
-	email = sushant.nigalye@mercedes-benz.com
 	name = Sushant Nigalye
 [fetch]
 	prune = true
@@ -26,7 +25,7 @@
 	new = green bold
 	whitespace = red reverse
 [init]
-	templateDir = /Users/snigaly/.git-template
-  defaultBranch = main
+	templateDir = $HOME/.git-template
+	defaultBranch = main
 [credential "github.com"]
 	useHttpPath = true
