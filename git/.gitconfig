@@ -29,3 +29,5 @@
 	defaultBranch = main
 [credential "github.com"]
 	useHttpPath = true
+[url "https://git.swf.i.mercedes-benz.com/"]
+  insteadOf = "https://git.swf.daimler.com/"

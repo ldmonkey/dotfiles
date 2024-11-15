@@ -21,6 +21,7 @@ zi snippet OMZP::kubectl
 zi snippet OMZP::poetry
 zi snippet OMZP::tldr
 zi snippet OMZP::tmux
+zi snippet OMZP::terraform
 zi snippet https://github.com/zsh-users/zsh-autosuggestions/blob/master/zsh-autosuggestions.zsh
 #zi snippet OMZP::zsh-syntax-highlighting
 zi snippet https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/zsh-syntax-highlighting.zsh
@@ -44,7 +45,6 @@ alias jenkins='cd ~/gitlab/jenkins'
 #alias bkp='(){cp "$1"\{,.bkp\}}'
 
 #alias ssm='(){aws ssm start-session --target "$1" ;}'
-alias ssm='(){aws ssm start-session --target "$1" --document-name param --parameters linuxcmd="echo $(base64 -i ~/gitlab/my-setup/config/bashrc_for_ssm) | base64 -d > /home/ssm-user/.bashrc; bash" ;}'
 
 alias tfps='terraform plan -no-color | grep -E "(^.*[#~+-] .*|^[[:punct:]]|Plan)"'
 
@@ -53,6 +53,24 @@ alias l='ls -lars modified'
 alias cat='bat -pp'
 alias v=vim
 alias c=clear
+
+alias awsp='/usr/local/bin/idpcli.sh prod && export AWS_PROFILE=prod'
+alias awsi='/usr/local/bin/idpcli.sh int && export AWS_PROFILE=int'
+alias awsd='/usr/local/bin/idpcli.sh dev && export AWS_PROFILE=dev'
+alias awsl='/usr/local/bin/idpcli.sh logging && export AWS_PROFILE=logging'
+alias awsss='/usr/local/bin/idpcli.sh sharedSecurity && export AWS_PROFILE=sharedSecurity'
+alias awssn='/usr/local/bin/idpcli.sh sharedNetwork && export AWS_PROFILE=sharedNetwork'
+alias awspriv='export AWS_PROFILE=private'
+alias instances='(){/usr/local/bin/awscli_cheatsheet.sh ec2 describe-instances "$1" ;}'
+
+alias awscreds='(){. /Users/snigaly/gitlab/my-setup/scripts/set_aws_creds.sh "$1" "$2" ;}'
+
+alias vaultp='export VAULT_ADDR=https://hcvault.app.corpintra.net && export VAULT_NAMESPACE=shinyjenkins'
+alias vaulti='export VAULT_ADDR=https://vault-int.app.corpintra.net && export VAULT_NAMESPACE=shinyjenkins'
+alias vaultd='export VAULT_ADDR=https://vault-int.app.corpintra.net && export VAULT_NAMESPACE=shinyjenkins-dev'
+alias vtp='(){vaultp && export VAULT_TOKEN="$1" ;}'
+alias vti='(){vaulti && export VAULT_TOKEN="$1" ;}'
+alias vtd='(){vaultd && export VAULT_TOKEN="$1" ;}'alias ssm='(){aws ssm start-session --target "$1" --document-name param --parameters linuxcmd="echo $(base64 -i ~/gitlab/my-setup/config/bashrc_for_ssm) | base64 -d > /home/ssm-user/.bashrc; bash" ;}'
 
 # Hishtory Config:
 export PATH="$PATH:/Users/snigaly/.hishtory"
@@ -93,3 +111,8 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 ## If you want case-insensitive matching only if there are no case-sensitive matches add '', e.g.
 ## zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
+
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/snigaly/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
