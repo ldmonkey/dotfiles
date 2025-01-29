@@ -18,13 +18,45 @@ zi snippet OMZP::fzf
 zi snippet OMZP::git
 zi snippet OMZP::golang
 zi snippet OMZP::kubectl
-zi snippet OMZP::poetry
+#zi snippet OMZP::poetry
 zi snippet OMZP::tldr
 zi snippet OMZP::tmux
 zi snippet OMZP::terraform
-zi snippet https://github.com/zsh-users/zsh-autosuggestions/blob/master/zsh-autosuggestions.zsh
+zi snippet OMZ::plugins/git/git.plugin.zsh
+zi ice lucid as"program" pick"bin/git-dsf"
+zi load so-fancy/diff-so-fancy
+
+#zi snippet https://github.com/zsh-users/zsh-autosuggestions/blob/master/zsh-autosuggestions.zsh
 #zi snippet OMZP::zsh-syntax-highlighting
-zi snippet https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/zsh-syntax-highlighting.zsh
+#zi snippet https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/zsh-syntax-highlighting.zsh
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+#zinit load 'zsh-users/zsh-history-substring-search'
+#zinit ice wait atload'_history_substring_search_config'
+#bindkey "${terminfo[kcuu1]}" history-substring-search-up
+#bindkey "${terminfo[kcud1]}" history-substring-search-down
+
+# ZLE history-search
+autoload -U history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^[[A" history-beginning-search-backward-end
+bindkey "^[[B" history-beginning-search-forward-end
+
+#key=(
+#    BackSpace  "${terminfo[kbs]}"
+#    Home       "${terminfo[khome]}"
+#    End        "${terminfo[kend]}"
+#    Insert     "${terminfo[kich1]}"
+#    Delete     "${terminfo[kdch1]}"
+#    Up         "${terminfo[kcuu1]}"
+#    Down       "${terminfo[kcud1]}"
+#    Left       "${terminfo[kcub1]}"
+#    Right      "${terminfo[kcuf1]}"
+#    PageUp     "${terminfo[kpp]}"
+#    PageDown   "${terminfo[knp]}"
+#)
 
 # Custom aliases
 alias tree='tree -a -I .git'
@@ -71,18 +103,19 @@ alias vaultd='export VAULT_ADDR=https://vault-int.app.corpintra.net && export VA
 alias vtp='(){vaultp && export VAULT_TOKEN="$1" ;}'
 alias vti='(){vaulti && export VAULT_TOKEN="$1" ;}'
 alias vtd='(){vaultd && export VAULT_TOKEN="$1" ;}'alias ssm='(){aws ssm start-session --target "$1" --document-name param --parameters linuxcmd="echo $(base64 -i ~/gitlab/my-setup/config/bashrc_for_ssm) | base64 -d > /home/ssm-user/.bashrc; bash" ;}'
+alias python=python3
 
 # Hishtory Config:
-export PATH="$PATH:/Users/snigaly/.hishtory"
-source /Users/snigaly/.hishtory/config.zsh
+#export PATH="$PATH:/Users/snigaly/.hishtory"
+#source /Users/snigaly/.hishtory/config.zsh
 
 # thefuck
 eval $(thefuck --alias)
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
 
 # Use zoxide instad of the cd command
 eval "$(zoxide init --cmd cd zsh)"
@@ -116,3 +149,8 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/snigaly/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+#
+
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+
+export PATH="$HOME/go/bin:$PATH"
